@@ -1,4 +1,4 @@
-from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, DestroyAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
 
 from .models import Task
 from .serializers import TaskSerializer
@@ -24,6 +24,16 @@ class DetailTaskView(RetrieveAPIView):
     def get(self, request, pk, *args, **kwargs):
         self.queryset = Task.objects.filter(pk=pk)
         return super().get(request, pk, *args, **kwargs)
+
+
+class UpdateTaskView(UpdateAPIView):
+
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+
+    def partial_update(self, request, pk, *args, **kwargs):
+        self.queryset = Task.objects.filter(pk=pk)
+        return super().partial_update(request, pk,  *args, **kwargs)
 
 
 class DeleteTaskView(DestroyAPIView):

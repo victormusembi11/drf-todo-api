@@ -26,7 +26,7 @@ function App() {
   return (
     <div className="App">
       <Header title="Todo App" />
-      <Tasks tasks={tasks} onDelete={deleteTask}/>
+      {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask}/> : 'No Tasks to show'}
     </div>
   );
 }

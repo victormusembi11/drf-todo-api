@@ -26,10 +26,11 @@ function App() {
   // Toggle reminder
   const toggleReminder = (id) => {
     console.log(id)
+    setTask(tasks.map((task) => task.id === id ? { ...task, completed: !task.completed } : task))
   }
 
   return (
-    <div className="App">
+    <div className="container">
       <Header title="Todo App" />
       {tasks.length > 0 ? (
         <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/>

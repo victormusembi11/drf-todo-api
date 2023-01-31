@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Button = ({ color, text}) => {
+const Button = ({ color, text, onAdd }) => {
   return (
-    <button className='btn' style={{ backgroundColor: color }}>{text}</button>
+    <button className='btn' style={{ backgroundColor: color }} onClick={onAdd} >{text}</button>
   )
 }
 

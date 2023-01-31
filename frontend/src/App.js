@@ -4,6 +4,7 @@ import Tasks from "./components/Tasks";
 import AddTask from "./components/AddTask";
 
 function App() {
+  const [showAddTask, setShowAddTask] = useState(false)
   const [tasks, setTask] = useState(
     [
         {
@@ -40,8 +41,8 @@ function App() {
 
   return (
     <div className="container">
-      <Header title="Todo App" />
-      <AddTask onAdd={addTask} /> 
+      <Header title="Todo App" onAdd={() => setShowAddTask(!showAddTask)} />
+      {showAddTask === true ? <AddTask onAdd={addTask} /> : ''}
       {tasks.length > 0 ? (
         <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/>
       ) : (

@@ -32,7 +32,10 @@ function App() {
   }
 
   // Delete Task
-  const deleteTask = (id) => {
+  const deleteTask = async (id) => {
+    await fetch(`http://127.0.0.1:8000/todo/task-delete/${id}/`, {
+       method: 'DELETE '
+    });
     setTask(tasks.filter((task) => task.id !== id))
   }
 

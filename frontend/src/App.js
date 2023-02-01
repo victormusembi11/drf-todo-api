@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
 import AddTask from "./components/AddTask";
@@ -6,6 +6,22 @@ import AddTask from "./components/AddTask";
 function App() {
   const [showAddTask, setShowAddTask] = useState(false)
   const [tasks, setTask] = useState([])
+
+  useEffect(() => {
+    const getTask = async() => {
+      const tasksFromServer = await fetchTasks()
+      setTask(tasksFromServer)
+    }
+
+    getTask()
+  }, [])
+
+  // Fetch Tasks
+  const fetchTasks = async () => {
+    const res = await fetch('http://127.0.0.1:8000/todo/task-list/')
+    const data = await res.json()
+    return data
+  }
 
   // Add Task
   const addTask = (task) => {

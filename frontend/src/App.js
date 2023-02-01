@@ -5,20 +5,7 @@ import AddTask from "./components/AddTask";
 
 function App() {
   const [showAddTask, setShowAddTask] = useState(false)
-  const [tasks, setTask] = useState(
-    [
-        {
-            id: 1,
-            title: 'Meal prep',
-            completed: false
-        },
-        {
-            id: 2,
-            title: 'Sleep',
-            completed: false
-        }
-    ]
-  )
+  const [tasks, setTask] = useState([])
 
   // Add Task
   const addTask = (task) => {

@@ -23,6 +23,13 @@ function App() {
     return data
   }
 
+  // Fetch Task
+  const fetchTask = async (id) => {
+    const res = await fetch(`http://127.0.0.1:8000/todo/task-detail/${id}/`)
+    const data = await res.json()
+    return data
+  }
+
   // Add Task
   const addTask = async (task) => {
     const res = await fetch('http://127.0.0.1:8000/todo/task-create/', {
@@ -45,9 +52,21 @@ function App() {
   }
 
   // Toggle reminder
-  const toggleReminder = (id) => {
-    console.log(id)
-    setTask(tasks.map((task) => task.id === id ? { ...task, completed: !task.completed } : task))
+  const toggleReminder = async (id) => {
+    const taskToToggle = await fetchTask(id)
+    const updatedTask = { ...taskToToggle, completed: !taskToToggle.completed }
+
+    const res = await fetch(`http://127.0.0.1:8000/todo/task-update/${id}/`, {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(updatedTask)
+    })
+    
+    const data = await res.json()
+
+    setTask(tasks.map((task) => task.id === id ? { ...task, completed: data.completed } : task))
   }
 
   return (

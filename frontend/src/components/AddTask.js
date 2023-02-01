@@ -18,14 +18,14 @@ const AddTask = ({ onAdd }) => {
 
 
   return (
-    <form className="add-form" onSubmit={onSubmit}>
-        <div className="form-control">
-            <label>Task</label>
-            <input type="text" placeholder="Add Task" value={title} onChange={(e) => {
+    <form onSubmit={onSubmit}>
+        <div className="mb-3">
+            <label className="form-label">Task</label>
+            <input type="text" className="form-control" placeholder="Add Task" value={title} onChange={(e) => {
                 setTitle(e.target.value)
             }} />
         </div>
-        <input type="submit" className="btn btn-block" value="Save Task"/>
+        <button type="submit" className="btn btn-primary">Submit</button>
     </form>
   )
 }

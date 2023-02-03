@@ -1,86 +1,29 @@
-import { useState, useEffect } from "react"
-import Header from "./components/Header";
-import Tasks from "./components/Tasks";
-import AddTask from "./components/AddTask";
-import Footer from "./components/Footer";
+import { Link, Routes, Route } from "react-router-dom";
+import About from "./components/About";
+import Home from "./components/Home";
 
 function App() {
-  const [showAddTask, setShowAddTask] = useState(false)
-  const [tasks, setTask] = useState([])
-
-  useEffect(() => {
-    const getTask = async() => {
-      const tasksFromServer = await fetchTasks()
-      setTask(tasksFromServer)
-    }
-
-    getTask()
-  }, [])
-
-  // Fetch Tasks
-  const fetchTasks = async () => {
-    const res = await fetch('http://127.0.0.1:8000/todo/task-list/')
-    const data = await res.json()
-    return data
-  }
-
-  // Fetch Task
-  const fetchTask = async (id) => {
-    const res = await fetch(`http://127.0.0.1:8000/todo/task-detail/${id}/`)
-    const data = await res.json()
-    return data
-  }
-
-  // Add Task
-  const addTask = async (task) => {
-    const res = await fetch('http://127.0.0.1:8000/todo/task-create/', {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json'
-      },
-      body: JSON.stringify(task)
-    })
-    const data = await res.json()
-    setTask([...tasks, data])
-  }
-
-  // Delete Task
-  const deleteTask = async (id) => {
-    await fetch(`http://127.0.0.1:8000/todo/task-delete/${id}/`, {
-       method: 'DELETE'
-    });
-    setTask(tasks.filter((task) => task.id !== id))
-  }
-
-  // Toggle reminder
-  const toggleReminder = async (id) => {
-    const taskToToggle = await fetchTask(id)
-    const updatedTask = { ...taskToToggle, completed: !taskToToggle.completed }
-
-    const res = await fetch(`http://127.0.0.1:8000/todo/task-update/${id}/`, {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json'
-      },
-      body: JSON.stringify(updatedTask)
-    })
-    
-    const data = await res.json()
-
-    setTask(tasks.map((task) => task.id === id ? { ...task, completed: data.completed } : task))
-  }
-
   return (
-    <div className="container">
-      <Header title="Todo App" onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask} />
-      {showAddTask === true ? <AddTask onAdd={addTask} /> : ''}
-      {tasks.length > 0 ? (
-        <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/>
-      ) : (
-        'No Tasks to show'
-      )}
-      <Footer />
-    </div>
+    <>
+      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <div className="container-fluid">
+          <Link className="navbar-brand" to="/">Navbar</Link>
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div className="navbar-nav">
+              <Link className="nav-link" to="/">Home</Link>
+              <Link className="nav-link" to="/about">About</Link>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <Routes>
+        <Route path="/about" element={<About />} />
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </>
   );
 }
 

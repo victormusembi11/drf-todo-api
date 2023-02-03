@@ -1,7 +1,7 @@
-import Header from "./Header";
-import Tasks from "./Tasks";
-import AddTask from "./AddTask";
-import Footer from "./Footer";
+import Header from "../components/Header";
+import Tasks from "../components/Tasks";
+import AddTask from "../components/AddTask";
+import Footer from "../components/Footer";
 import { useState, useEffect } from "react"
 
 const Home = () => {

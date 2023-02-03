@@ -1,6 +1,7 @@
 import { Link, Routes, Route } from "react-router-dom";
 import About from "./pages/About";
 import Home from "./pages/Home";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="navbar-nav">
               <Link className="nav-link" to="/">Home</Link>
+              <Link className="nav-link" to="/login">Login</Link>
               <Link className="nav-link" to="/about">About</Link>
             </div>
           </div>
@@ -22,6 +24,7 @@ function App() {
       <Routes>
         <Route path="/about" element={<About />} />
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </>
   );
